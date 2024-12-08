@@ -36,6 +36,7 @@ Berikut merupakan kode training dan inferensi murni dengan model YOLOv5 :
 
 ## Prasyarat
 ### Struktur Direktori Proyek
+File utama sistem proyek terdapat pada direktori parking-slot-detection.
 
 ![Struktur File](assets/struktur-file-proyek.png)
 
