@@ -71,7 +71,7 @@ Untuk menginstall library yang digunakan pada sistem, jalankan perintah :
 
 - Lakukan clone repository, jalankan perintah :
 
-`https://github.com/randybagaskr25/parking-slot-detection-edge-b.git`
+`git clone https://github.com/randybagaskr25/parking-slot-detection-edge-b.git`
 
 `cd parking-slot-detection-edge-b`
 
