@@ -24,7 +24,7 @@ Proyek berfokus pada sistem deteksi slot parkir pintar yang menggunakan YOLOv5 u
 ## Prasyarat
 ### Struktur Direktori Proyek
 
-![Struktur File](assets/struktur-file.jpg)
+![Struktur File](assets/struktur-file.png)
 
 ### Persiapan Komponen
 - **Raspberry Pi 4** : Edge device untuk proses deteksi slot parkir secara real-time.
