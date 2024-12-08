@@ -22,6 +22,18 @@ Proyek berfokus pada sistem deteksi slot parkir pintar yang menggunakan YOLOv5 u
 - Memberikan kemudahan untuk pengelolaan sistem parkir.
 - Implementasi AI untuk membantu pengelolaan parkir.
 
+## Dataset
+Untuk project ini, kami menggunakan dataset "Parking Space Computer Vision Project" yang terdapat pada website Roboflow.
+
+Source : (https://universe.roboflow.com/muhammad-syihab-bdynf/parking-space-ipm1b)
+
+## Source Code Training dan Inferensi
+Berikut merupakan kode training dan inferensi murni dengan model YOLOv5 :
+
+- Training : [Source Code Training](training-and-inference/Edge_YOLOv5_Model_Slot_Parking-Training.ipynb)
+
+- Inferensi Murni dengan YOLOv5 : [Source Code Inferensi Murni YOLOv5](training-and-inference/inference.py)
+
 ## Prasyarat
 ### Struktur Direktori Proyek
 
@@ -51,11 +63,42 @@ Untuk menginstall library yang digunakan pada sistem, jalankan perintah :
 ## Arsitektur Umum
 ![Arsitektur Umum Sistem](assets/arsitektur.jpg)
 
+## Tampilan Umum Sistem
+![Tampilan Umum Sistem](assets/sistemparkir_umum.jpg)
+
+## Flowchart Sistem
+![Flowchart](assets/flowchart.jpg)
+
+**Alur Kerja Sistem** :
+
+1. Sistem dimulai dengan mengaktifkan beberapa komponen penting, seperti Flask untuk server backend, SocketIO untuk mengirim data real-time ke dashboard, dan YOLO untuk mendeteksi kendaraan.
+
+2. Setelah semuanya siap, webcam dinyalakan untuk mulai menangkap gambar atau video secara langsung.
+
+3. Sistem kemudian mengambil gambar (frame) dari webcam dan mengirimkannya ke YOLO untuk dianalisis. Di sini, YOLO akan mendeteksi kendaraan yang ada di frame tersebut, seperti mobil atau motor.
+
+4. Setelah kendaraan terdeteksi, sistem akan menghitung jumlah slot parkir yang kosong dan terisi sesuai dengan jenis kendaraan yang ditemukan.
+
+5. Data hasil deteksi ini disimpan ke dalam file CSV sebagai catatan, sehingga semua aktivitas sistem terdokumentasi dengan baik.
+
+6. Pada saat yang sama, sistem juga mengirim data real-time ke dashboard agar pengguna bisa langsung melihat informasi jumlah slot parkir yang tersedia.
+
+7. Setelah selesai memproses sebuah gambar, sistem akan masuk ke mode istirahat (idle) selama 2 detik. Ini seperti jeda singkat sebelum sistem kembali bekerja, supaya penggunaan komputasi lebih efisien.
+
+8. Selama mode istirahat, sistem akan memeriksa dua hal:
+
+    - Apakah waktu 2 detik sudah selesai? Kalau iya, sistem akan melanjutkan untuk memproses gambar berikutnya.
+    - Apakah pengguna ingin mematikan sistem? Kalau iya, sistem akan berhenti bekerja.
+
+9. Kalau tidak ada perintah untuk mematikan sistem, maka sistem akan terus mengulangi proses ini dari awal: menangkap gambar, mendeteksi kendaraan, menghitung slot parkir, menyimpan data, dan mengirim ke dashboard.
+
+10. Sistem akan benar-benar berhenti hanya jika pengguna memutuskan untuk mematikannya.
+
 ## Tampilan Dashboard
 ![Dashboard](assets/dashboard.png)
 
-## Demo
-### Setup ###
+## Setup dan Demo
+### Setup
 - Hubungkan webcam ke Raspberry Pi.
 - Hidupkan Raspberry Pi yang sudah diinstall dengan Raspberry OS.
 - Pastikan Raspberry Pi terhubung dengan jaringan internet.
@@ -95,9 +138,11 @@ atau
 
 - Jika ingin keluar dari program, tekan CTRL + C.
 
+### Demo
+
 Berikut merupakan video demo sistem :
 
-[Demo Sistem](assets/demo.mp4)
+[Klik di sini untuk menonton video demo](https://youtu.be/KHmaRmlyLBo)
 
 ## Kesimpulan
-Proyek ini berhasil menciptakan sistem deteksi slot parkir real-time yang menggunakan model YOLO, dihubungkan dengan aplikasi web berbasis Flask dan SocketIO untuk menampilkan informasi jumlah slot kosong dan terisi secara langsung ke dashboard web. Selain itu, sistem ini mencatat hasil deteksi dalam file log CSV untuk analisis lebih lanjut. Meskipun deteksi dilakukan dengan cepat dan akurat, tantangan tetap ada pada kualitas gambar dan akurasi dalam kondisi lingkungan yang bervariasi.
+Proyek ini berhasil menciptakan sistem deteksi slot parkir real-time yang menggunakan model YOLOv5, dihubungkan dengan aplikasi web berbasis Flask dan SocketIO untuk menampilkan informasi jumlah slot kosong dan terisi secara langsung ke dashboard web. Selain itu, sistem ini mencatat hasil deteksi dalam file log CSV untuk analisis lebih lanjut. Meskipun deteksi dilakukan dengan cepat dan akurat, tantangan tetap ada pada kualitas gambar dan akurasi dalam kondisi lingkungan yang bervariasi.
