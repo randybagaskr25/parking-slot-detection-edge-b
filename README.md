@@ -35,4 +35,10 @@ Proyek berfokus pada sistem deteksi slot parkir pintar yang menggunakan YOLOv5 u
 - **Model YOLOv5 (You Only Look Once v5)**
 - **CSV** : Mencatat log parkir.
 
-### Arsitektur Umum
+## Arsitektur Umum
+
+## Tampilan Dashboard
+
+## Demo
+
+## Kesimpulan
