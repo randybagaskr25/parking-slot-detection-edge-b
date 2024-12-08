@@ -1,5 +1,6 @@
 # Sistem Deteksi Slot Parkir Mobil dengan YOLOv5 Berbasis Raspberry Pi 4
 **Project akhir mata kuliah Edge Intelligence and Computing - B**
+![cover](assets/cover.jpg)
 
 ## Anggota Kelompok : ##
 - **Virandy Bagaskara Syahwanto** - *215150307111028*
@@ -21,6 +22,10 @@ Proyek berfokus pada sistem deteksi slot parkir pintar yang menggunakan YOLOv5 u
 - Implementasi AI untuk membantu pengelolaan parkir.
 
 ## Prasyarat
+### Struktur Direktori Proyek
+
+![Struktur File](assets/struktur-file.jpg)
+
 ### Persiapan Komponen
 - **Raspberry Pi 4** : Edge device untuk proses deteksi slot parkir secara real-time.
 - **Webcam** : Input video real-time untuk deteksi slot parkir. 
@@ -30,15 +35,26 @@ Proyek berfokus pada sistem deteksi slot parkir pintar yang menggunakan YOLOv5 u
 ### Persiapan Perangkat Lunak
 - **Python 3.8 atau lebih baru** 
 - **Flask Library** : Framework web untuk dashboard.
-- **Flask-SocketIO** : Integrasi WebSocket untuk update data secara real-time.
+- **Flask-SocketIO Library** : Integrasi WebSocket untuk update data secara real-time.
 - **OpenCV Library** : Menangkap video dari webcam dan menampilkan frame.
+- **Ultralytics Library** : Menjalankan model YOLO.
 - **Model YOLOv5 (You Only Look Once v5)**
 - **CSV** : Mencatat log parkir.
 
+Untuk menginstall library yang digunakan pada sistem, jalankan perintah :
+
+`pip install -r requirements.txt`
+
 ## Arsitektur Umum
+![Arsitektur Umum Sistem](assets/arsitektur.jpg)
 
 ## Tampilan Dashboard
+![Dashboard](assets/dashboard.png)
 
 ## Demo
+Berikut merupakan video demo sistem :
+
+[Demo Sistem](assets/demo.mp4)
 
 ## Kesimpulan
+Proyek ini berhasil menciptakan sistem deteksi slot parkir real-time yang menggunakan model YOLO, dihubungkan dengan aplikasi web berbasis Flask dan SocketIO untuk menampilkan informasi jumlah slot kosong dan terisi secara langsung ke dashboard web. Selain itu, sistem ini mencatat hasil deteksi dalam file log CSV untuk analisis lebih lanjut. Meskipun deteksi dilakukan dengan cepat dan akurat, tantangan tetap ada pada kualitas gambar dan akurasi dalam kondisi lingkungan yang bervariasi.
