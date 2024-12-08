@@ -1,0 +1,4 @@
+Flask==3.1.0
+flask-SocketIO==5.4.1
+opencv-python==4.10.0.84
+ultralytics==8.3.39

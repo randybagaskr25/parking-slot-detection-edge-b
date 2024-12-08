@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parking Slot Detection Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .counter-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .counter {
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 30%;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+        .log-container {
+            overflow-y: auto;
+            max-height: 300px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Parking Slot Detection Dashboard</h1>
+
+    <!-- Counter Section -->
+    <div class="counter-container">
+        <div class="counter">
+            <h2 id="vacant-count">0</h2>
+            <p>Vacant Slots</p>
+        </div>
+        <div class="counter">
+            <h2 id="occupied-count">0</h2>
+            <p>Occupied Slots</p>
+        </div>
+        <div class="counter">
+            <h2>12</h2>
+            <p>Total Slots</p>
+        </div>
+    </div>
+
+    <!-- Log Table -->
+    <div class="log-container">
+        <table id="log-table">
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Vacant Slots</th>
+                    <th>Occupied Slots</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data log akan dimuat oleh JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+    <script>
+        // Connect to WebSocket server
+        const socket = io();
+
+        // Receive real-time counter updates
+        socket.on('update_counters', function(data) {
+            document.getElementById('vacant-count').textContent = data.vacant;
+            document.getElementById('occupied-count').textContent = data.occupied;
+        });
+
+        // Receive real-time log updates
+        socket.on('update_log', function(data) {
+            const logTableBody = document.querySelector('#log-table tbody');
+            const tr = document.createElement('tr');
+            const timestampTd = document.createElement('td');
+            const vacantTd = document.createElement('td');
+            const occupiedTd = document.createElement('td');
+            
+            timestampTd.textContent = data.timestamp;
+            vacantTd.textContent = data.vacant;
+            occupiedTd.textContent = data.occupied;
+            
+            tr.appendChild(timestampTd);
+            tr.appendChild(vacantTd);
+            tr.appendChild(occupiedTd);
+            logTableBody.appendChild(tr);
+        });
+
+        // Fetch initial log data on page load
+        fetch('/log_data')
+            .then(response => response.json())
+            .then(data => {
+                const logTableBody = document.querySelector('#log-table tbody');
+                logTableBody.innerHTML = ''; // Hapus isi tabel sebelum menambahkan data baru
+                data.log_data.forEach(row => {
+                    if (row.length === 3) { // Hanya tambahkan baris dengan 3 kolom
+                        const tr = document.createElement('tr');
+                        row.forEach(cell => {
+                            const td = document.createElement('td');
+                            td.textContent = cell;
+                            tr.appendChild(td);
+                        });
+                        logTableBody.appendChild(tr);
+                    }
+                });
+            });
+    </script>
+</body>
+</html>
